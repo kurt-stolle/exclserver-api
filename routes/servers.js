@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // VARIABLES
 var express = require('express'),

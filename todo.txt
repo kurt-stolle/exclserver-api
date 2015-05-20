@@ -1,0 +1,10 @@
+TODO LIST
+
+GET  /loadingurl                display loading url (moustache.js and socket.io)
+GET  /player/sid/rank?server=x     return rank, if no server id is given, return the global (serverid 0) only
+POST /player/sid/rank?server=x     push rank
+GET  /player/sid/fields/field   get player field
+GET  /chat                      pull latest chat messages
+POST /chat                      push new chat messages
+
+to be continued...

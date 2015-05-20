@@ -1,10 +1,11 @@
-"use strict";
+'use strict';
 
 
 var express = require('express'),
     paypal = require('paypal-rest-sdk'),
     mysql = require('mysql'),
-    db = require('../lib/db.js');
+    db = require('../lib/db.js'),
+    fs = require("fs");
 
 // CONFIG
 var host='https://es2-api.casualbananas.com'; // Local IP address or DNS name.
@@ -22,11 +23,7 @@ config file:
 
 */
 
-paypal.configure({
-  'mode': 'live',
-  'client_id': 'xxx',
-  'client_secret': 'xxx'
-});
+paypal.configure( JSON.parse(fs.readFileSync(__dirname + '/../config.json')).paypal );
 
 // DB SETUP
 db.query("CREATE TABLE IF NOT EXISTS `es_donations` (`id` int unsigned not null AUTO_INCREMENT, paid bool, claimed bool, name varchar(255), email varchar(255), steamid varchar(255), amount int unsigned, ip varchar(255), payment_id varchar(255), payer_id varchar(255), PRIMARY KEY (`id`), UNIQUE KEY `id` (`id`)) ENGINE=MyISAM DEFAULT CHARSET=latin1;",function(){
