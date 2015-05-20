@@ -22,7 +22,11 @@ config file:
 
 */
 
-paypal.configure(config here);
+paypal.configure({
+  'mode': 'live',
+  'client_id': 'xxx',
+  'client_secret': 'xxx'
+});
 
 // DB SETUP
 db.query("CREATE TABLE IF NOT EXISTS `es_donations` (`id` int unsigned not null AUTO_INCREMENT, paid bool, claimed bool, name varchar(255), email varchar(255), steamid varchar(255), amount int unsigned, ip varchar(255), payment_id varchar(255), payer_id varchar(255), PRIMARY KEY (`id`), UNIQUE KEY `id` (`id`)) ENGINE=MyISAM DEFAULT CHARSET=latin1;",function(){
