@@ -18,9 +18,9 @@ router.get('/:steamid/rank', function(req, res, next) {
 });
 
 /* POST set rank for player provided with Steam and Server ID */
-router.post('/:steamid/rank', function(req, res, next) {  
+router.post('/:steamid/rank', function(req, res, next) {    
   if(!req.body.rank) res.json({err:'rank required'});
-  
+
   //get all ranks for SteamID and ServerID
   db.query({
     sql: 'SELECT `rank` FROM `es_ranks` WHERE `steamid` = ? AND `serverid` = ?',
@@ -32,7 +32,7 @@ router.post('/:steamid/rank', function(req, res, next) {
     //if there is a result then update the existing row
     if(results.length != 0) {
       db.query({
-       sql: 'UPDATE `es_ranks` SET ? WHERE `steamid` = ' + db.escape(req.param.steamid) + ' AND `serverid` = ' + db.escape(req.body.serverid || 0),
+       sql: 'UPDATE `es_ranks` SET ? WHERE `steamid` = ' + db.escape(req.params.steamid) + ' AND `serverid` = ' + db.escape(req.body.serverid || 0),
        values: {rank: req.body.rank}
       },
       function(error, results, fields) {
@@ -44,7 +44,7 @@ router.post('/:steamid/rank', function(req, res, next) {
     } else {
       db.query({
        sql: 'INSERT INTO `es_ranks` SET ?',
-       values: {steamid: req.param.steamid, serverid: req.body.serverid || 0, rank: req.body.rank}
+       values: {steamid: req.params.steamid, serverid: req.body.serverid || 0, rank: req.body.rank}
       },
       function(error, results, fields) {
        if(error) res.json(error);

@@ -1,7 +1,8 @@
 /// <reference path="typings/node/node.d.ts"/>
 'use strict';
 
-var express = require('express');
+var express = require('express'),
+    bodyParser = require('body-parser');
 
 var app = express();
 
@@ -14,6 +15,8 @@ var index = require(__dirname + '/routes/index.js'),
     logs = require(__dirname + '/routes/logs.js'),
     player = require(__dirname + '/routes/player.js'),
     bans = require(__dirname + '/routes/bans.js');
+    
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/servers', servers);
 app.use('/api/donate', donate);
