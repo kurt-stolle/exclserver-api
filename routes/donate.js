@@ -9,11 +9,20 @@ var express = require('express'),
 // CONFIG
 var host='https://es2-api.casualbananas.com'; // Local IP address or DNS name.
 var community_name="Casual Bananas";
-paypal.configure({
+
+
+/*
+
+config file:
+"paypal": {
   'mode': 'live',
-  'client_id': 'AejZo6UZ8k173xayK0qk1hBuUdY67YmzyTwZ6iM6G0wSIf1LzVgmuH9yIEak6dkWHqFh3oriStak5qyt',
-  'client_secret': 'EPzgf8XX42pY0i9eeAbmqoK2ZaDBRLzVj8vDIx6JsGkerS5Nq-4sehpx6O5yB1oT9Vk_Rd6ZWbf_uQph'
-});
+  'client_id': 'xxx',
+  'client_secret': 'xxx'
+}
+
+*/
+
+paypal.configure(config here);
 
 // DB SETUP
 db.query("CREATE TABLE IF NOT EXISTS `es_donations` (`id` int unsigned not null AUTO_INCREMENT, paid bool, claimed bool, name varchar(255), email varchar(255), steamid varchar(255), amount int unsigned, ip varchar(255), payment_id varchar(255), payer_id varchar(255), PRIMARY KEY (`id`), UNIQUE KEY `id` (`id`)) ENGINE=MyISAM DEFAULT CHARSET=latin1;",function(){
