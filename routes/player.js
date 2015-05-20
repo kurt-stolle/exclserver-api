@@ -5,31 +5,95 @@ var express = require('express'),
 
 var router = express.Router();
 
-//GET rank for :steamid
+/* GET get rank for player provided with Steam and Server ID */
 router.get('/:steamid/rank', function(req, res, next) {
-  var query = 'SELECT rank FROM es_ranks WHERE steamid = \'' + req.params.steamid + '\';';
-
-  db.query(query, function(err, rows) {
-   if(err) res.json(err);
-   res.json(rows);
+  db.query({
+    sql: 'SELECT `rank` FROM `es_ranks` WHERE `steamid` = ? AND `serverid` = ?',
+    values: [req.params.steamid, req.query.serverid || 0]
+  }, 
+  function(error, results, fields) {
+    if(error) res.json(error);
+    res.json(results);    
   });
 });
 
-//GET inventory for :steamid
+/* POST set rank for player provided with Steam and Server ID */
+router.post('/:steamid/rank', function(req, res, next) {  
+  if(!req.body.rank) res.json({err:'rank required'});
+  
+  //get all ranks for SteamID and ServerID
+  db.query({
+    sql: 'SELECT `rank` FROM `es_ranks` WHERE `steamid` = ? AND `serverid` = ?',
+    values: [req.params.steamid, req.body.serverid || 0]
+  }, 
+  function(error, results, fields) {
+    if(error) res.json(error);
+    
+    //if there is a result then update the existing row
+    if(results.length != 0) {
+      db.query({
+       sql: 'UPDATE `es_ranks` SET ? WHERE `steamid` = ' + db.escape(req.param.steamid) + ' AND `serverid` = ' + db.escape(req.body.serverid || 0),
+       values: {rank: req.body.rank}
+      },
+      function(error, results, fields) {
+       if(error) res.json(error);
+       res.json(results);
+      });
+    
+    //if there is no result than we insert a new row
+    } else {
+      db.query({
+       sql: 'INSERT INTO `es_ranks` SET ?',
+       values: {steamid: req.param.steamid, serverid: req.body.serverid || 0, rank: req.body.rank}
+      },
+      function(error, results, fields) {
+       if(error) res.json(error);
+       res.json(results);
+      });
+    }
+  }); 
+});
+
+/* GET get all fields for a player provided with SteamID */
+router.get('/:steamid/fields', function(req, res, next) {
+  db.query({
+    sql: 'SELECT * FROM `es_player_fields` WHERE `steamid` = ?',
+    values: [req.params.steamid]
+  }, 
+  function(error, results, fields) {
+    if(error) res.json(error);
+    res.json(results);    
+  });
+});
+
+/* GET get specific field for player provided with SteamID */
+router.get('/:steamid/fields/:field', function(req, res, next) {
+  db.query({
+    sql: 'SELECT ?? FROM `es_player_fields` WHERE `steamid` = ?',
+    values: [req.params.field, req.params.steamid]
+  }, 
+  function(error, results, fields) {
+    if(error) res.json(error);
+    res.json(results);    
+  });
+});
+
+/* GET get player inventory and filter by itemtype */
 router.get('/:steamid/inventory', function(req, res, next) {
-  var query = 'SELECT itemtype, name FROM es_player_inventory WHERE steamid = \'' + req.params.steamid + '\'';
-
-  if(req.query.itemtype)
-    query += ' AND itemtype = \'' + req.query.itemtype + '\'';
-
-  if(req.query.limit)
-    query += ' LIMIT ' + req.query.limit;
-
-   query += ';';
-
-  db.query(query, function(err, rows) {
-   if(err) res.json(err);
-   res.json(rows);
+  var query = {
+    sql: 'SELECT `itemtype`, `name` FROM `es_player_inventory` WHERE `steamid` = ?',
+    values: [req.params.steamid]
+  };
+  
+  if(req.query.itemtype) {
+    query.sql += ' AND `itemtype` = ?';
+    query.values.push(req.query.itemtype); 
+  }
+  
+  db.query(query, 
+  function(error, results, fields) {
+    if(error) res.json(error);
+    res.json(results);    
   });
 });
 
