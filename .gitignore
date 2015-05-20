@@ -8,3 +8,6 @@ config.json
 node_modules
 npm-debug.log
 .ntvs_analysis.dat
+
+#Visual Studio Code
+typings

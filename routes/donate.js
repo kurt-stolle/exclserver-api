@@ -2,9 +2,9 @@
 
 
 var express = require('express'),
-  paypal = require('paypal-rest-sdk'),
-  mysql = require('mysql'),
-  db = require('../library/db.js');
+    paypal = require('paypal-rest-sdk'),
+    mysql = require('mysql'),
+    db = require('../lib/db.js');
 
 // CONFIG
 var host='https://es2-api.casualbananas.com'; // Local IP address or DNS name.

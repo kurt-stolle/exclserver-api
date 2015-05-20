@@ -2,7 +2,7 @@
 
 // VARIABLES
 var express = require('express'),
-  db = require('../library/db.js');
+    db = require('../lib/db.js');
 
 // INIT ROUTER
 var router = express.Router();

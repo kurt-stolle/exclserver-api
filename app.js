@@ -1,3 +1,4 @@
+/// <reference path="typings/node/node.d.ts"/>
 "use strict";
 
 var express = require('express');
@@ -7,9 +8,9 @@ var app = express();
 app.set('view engine', 'html');
 app.set('x-powered-by', false);
 
-var index = require('./routes/index.js'),
-  donate = require('./routes/donate.js'),
-  servers = require('./routes/servers.js');
+var index = require(__dirname + '/routes/index.js'),
+    donate = require(__dirname + '/routes/donate.js'),
+    servers = require(__dirname + '/routes/servers.js');
 
 app.use('/api/servers', servers);
 app.use('/api/donate', donate);
