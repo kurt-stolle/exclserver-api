@@ -5,18 +5,22 @@ var express = require('express'),
 
 var router = express.Router();
 
-//GET all chat logs for :serverid
+/* GET all chat logs per serverid */
 router.get('/:serverid/chat', function(req, res, next) {
-  var query = 'SELECT text FROM es_logs WHERE type = 4 AND serverid = ' + req.params.serverid;
-
-  if(req.query.limit)
-    query += ' LIMIT ' + req.query.limit;
-
-   query += ';';
-
-  db.query(query, function(err, rows) {
-   if(err) res.json(err);
-   res.json(rows);
+   var query = {
+    sql: 'SELECT `text` FROM `es_logs` WHERE `type` = 4 AND `serverid` = ?',
+    values: [req.params.serverid]
+  };
+  
+  if(req.query.limit) {
+    query.sql += ' LIMIT ?';
+    query.values.push(parseInt(req.query.limit)); 
+  }
+  
+  db.query(query, 
+  function(error, results, fields) {
+    if(error) res.json(error);
+    res.json(results);    
   });
 });
 
