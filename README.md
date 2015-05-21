@@ -16,6 +16,12 @@ Make a file called config.json, in project's base directory.
     "user"     : "me",
     "password" : "secret",
     "database" : "testing"
-  }
+  },
+
+  "paypal" : {
+    "mode"          : "live",
+    "client_id"     : "xxx",
+    "client_secret" : "xxx"
+  }  
 }
 ```
