@@ -36,7 +36,7 @@ router.get('/', function(req, res, next) {
 router.post('/add', function(req, res, next) {    
   if(!req.body.steamid) res.json({err:'steamid required'});
   
-  //get all bans to see if we have to update
+  // get all bans to see if we have to update
   db.query({
     sql: 'SELECT * FROM `es_bans` WHERE `steamid` = ? AND `serverid` = ?',
     values: [req.body.steamid, req.body.serverid || 0]
@@ -44,7 +44,7 @@ router.post('/add', function(req, res, next) {
   function(error, results, fields) {
     if(error) res.json(error);
     
-    //if there is a result then update the existing row
+    // if there is a result then update the existing row
     if(results.length != 0) {
       db.query({
        sql: 'UPDATE `es_bans` SET ? WHERE `steamid` = ' + db.escape(req.body.steamid) + ' AND `serverid` = ' + db.escape(req.body.serverid || 0),
@@ -62,7 +62,7 @@ router.post('/add', function(req, res, next) {
        res.json(results);
       });
     
-    //if there is no result than we insert a new row
+    // if there is no result than we insert a new row
     } else {
       db.query({
        sql: 'INSERT INTO `es_bans` SET ?',
