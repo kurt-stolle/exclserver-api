@@ -5,7 +5,7 @@ var express = require('express'),
 
 var router = express.Router();
 
-//GET all bans, allow for sorting via ?active<> and ?steamid=<>
+/* GET all bans, allow for sorting via ?active<> and ?steamid=<> */
 router.get('/', function(req, res, next) {
   var query = {
     sql: 'SELECT * FROM `es_bans`',
@@ -30,6 +30,60 @@ router.get('/', function(req, res, next) {
     if(error) res.json(error);
     res.json(results);    
   });
+});
+
+/* POST add a ban */
+router.post('/add', function(req, res, next) {    
+  if(!req.body.steamid) res.json({err:'steamid required'});
+  
+  //get all bans to see if we have to update
+  db.query({
+    sql: 'SELECT * FROM `es_bans` WHERE `steamid` = ? AND `serverid` = ?',
+    values: [req.body.steamid, req.body.serverid || 0]
+  }, 
+  function(error, results, fields) {
+    if(error) res.json(error);
+    
+    //if there is a result then update the existing row
+    if(results.length != 0) {
+      db.query({
+       sql: 'UPDATE `es_bans` SET ? WHERE `steamid` = ' + db.escape(req.body.steamid) + ' AND `serverid` = ' + db.escape(req.body.serverid || 0),
+       values: {
+                steamidAdmin: req.body.steamidAdmin || 'ExclServer', 
+                name: req.body.name || results.name || '', 
+                nameAdmin: req.body.nameAdmin || 'ExclServer', 
+                unbanned: 0, time: req.body.time || 0, 
+                timeStart: Math.floor(new Date() / 1000), 
+                reason: req.body.reason || 'Banned.'
+               }
+      },
+      function(error, results, fields) {
+       if(error) res.json(error);
+       res.json(results);
+      });
+    
+    //if there is no result than we insert a new row
+    } else {
+      db.query({
+       sql: 'INSERT INTO `es_bans` SET ?',
+       values: {
+                steamid: req.body.steamid, 
+                steamidAdmin: req.body.steamidAdmin || 'ExclServer', 
+                name: req.body.name || '', 
+                nameAdmin: req.body.nameAdmin || 'ExclServer', 
+                serverid: req.body.serverid || 0, 
+                unbanned: 0, 
+                time: req.body.time || 0, 
+                timeStart: Math.floor(new Date() / 1000), 
+                reason: req.body.reason || 'Banned.'
+               }
+      },
+      function(error, results, fields) {
+       if(error) res.json(error);
+       res.json(results);
+      });
+    }
+  }); 
 });
 
 module.exports = router;
