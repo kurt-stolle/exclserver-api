@@ -162,4 +162,19 @@ router.get('/:steamid/inventory', function(req, res, next) {
   });
 });
 
+/* POST add item to player's inventory */
+router.post('/:steamid/inventory/add', function(req, res, next) { 
+  if(!req.body.itemtype) res.json({err:'itemtype required'});   
+  if(!req.body.name) res.json({err:'name required'});
+
+  db.query({
+   sql: 'INSERT INTO `es_player_inventory` SET ?',
+   values: {steamid: req.body.steamid, itemtype: req.body.itemtype, name: req.body.name}
+  },
+  function(error, results, fields) {
+   if(error) res.json(error);
+   res.json(results);
+  });
+});
+
 module.exports = router;
