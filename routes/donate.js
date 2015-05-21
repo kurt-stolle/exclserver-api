@@ -43,7 +43,7 @@ router.get('/', function(req, res, next) {
               'currency': 'USD',
               'total': req.query.amt + '.00'
           },
-          'description': req.query.amt * 1000 + " Bananas (digital goods) for SteamID " + req.body.steamid + " on all CasualBananas game servers."
+          'description': req.query.amt * 1000 + ' Bananas (digital goods) for SteamID ' + req.body.steamid + ' on all CasualBananas game servers.'
       }]
   }, 
   function (error, payment) {
@@ -83,9 +83,9 @@ router.get('/cancel', function(req, res, next) {
 /* GET paypal donation return */
 router.get('/return', function(req, res, next) {
   if (!req.query.PayerID || req.query.paymentId)
-    res.send({err:"paypal did not send valid info back"});
+    res.send({err:'paypal did not send valid info back'});
 
-  paypal.payment.execute(req.query.paymentId, {"payer_id": req.query.PayerID}, function(error, payment) {
+  paypal.payment.execute(req.query.paymentId, {'payer_id': req.query.PayerID}, function(error, payment) {
     if(error) 
       res.json(error);
     
