@@ -5,6 +5,7 @@ var express = require('express'),
 
 var router = express.Router();
 
+// only make a call to the database once per hour, unnessecary overhead
 var cache = {
   time : 0,
   results: {}
