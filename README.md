@@ -10,6 +10,7 @@ Make a file called config.json, in project's base directory.
 
 ```json
 {
+  "url": "http://localhost:3000",
   "mysql" : {
     "host"     : "localhost",
     "port"     : 3306,
