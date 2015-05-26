@@ -46,7 +46,7 @@ app.use('/api/bans', bans);
 
 // render the loading view
 app.get('/loading', function(req, res, next) {
-  res.render('loading', {});
+     res.render('loading', {});
 });
 
 // catch 404 and forward to error handler
