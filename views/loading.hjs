@@ -1,17 +1,15 @@
+<!DOCTYPE html>
 <html>
 
-<head>
-  <!-- STYLES -->
+<head lang="en-US" data-serverid="{{serverid}}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
   <link href="css/loading.css" rel="stylesheet" type="text/css" />
 
-  <!-- META INFORMATION -->
-  <title>Loading...</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Loading</title>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <script src="//cdn.jsdelivr.net/blocks/0.3.1/blocks.min.js"></script>
 </head>
 
 <body>
@@ -31,11 +29,14 @@
           </div>
           <div class="panel-body">
             <p style="line-height:38px;">
-              <img class="icon" src="img/icon_players.png"><div id="playercount">0/0 players</div>
+              <img class="icon" src="img/icon_players.png">0/
+              <span id="maxplayers">0</span> players
               <br />
-              <img class="icon" src="img/icon_map.png"><div id="map">undefined</div>
+              <img class="icon" src="img/icon_map.png">
+              <span id="map">undefined</span>
               <br />
-              <img class="icon" src="img/icon_ip.png">127.0.0.1:27015
+              <img class="icon" src="img/icon_ip.png">
+              <span id="ip">127.0.0.1:27015</span>
               <br />
             </p>
           </div>
@@ -47,13 +48,17 @@
           </div>
           <div class="panel-body">
             <p style="line-height:38px;">
-              <img class="icon" src="img/icon_user.png" /><div id="playername">Undefined</div>
+              <img class="icon" src="img/icon_user.png" />
+              <span id="playername">Undefined</span>
               <br />
-              <img class="icon" src="img/icon_id.png"><div id="steamid">STEAM_0:0:0</div>
+              <img class="icon" src="img/icon_id.png">
+              <span id="steamid">STEAM_0:0:0</span>
               <br />
-              <img class="icon" src="img/icon_bananas.png" /><div id="bananas">0 bananas</div>
+              <img class="icon" src="img/icon_bananas.png" />
+              <span id="bananas">0</span> bananas
               <br />
-              <img class="icon" src="img/icon_time.png" /><div id="time">0 hours</div>
+              <img class="icon" src="img/icon_time.png" />
+              <span id="time">0</span> hours
             </p>
           </div>
         </div>
@@ -64,7 +69,7 @@
           <div class="panel-heading">
             <h3 class="panel-title">Chat</h3>
           </div>
-          <div class="panel-body">
+          <div class="panel-body" id="chatbox">
             CHATBOX GOES HERE
           </div>
         </div>
@@ -92,7 +97,6 @@
   <!-- SCRIPTS -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <script src="//cdn.socket.io/socket.io-1.3.5.js"></script>
   <script src="/js/loading.js"></script>
 </body>
 

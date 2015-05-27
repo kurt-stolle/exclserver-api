@@ -9,16 +9,7 @@ var app = express();
 // setup view templating
 app.set('view engine', 'hjs');
 app.set('views', __dirname + '/views');
-app.set('x-powered-by', false);
-
-// header middleware for socket.io
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
-  next();
-});
+app.set('x-powered-by', 'ExclServer');
 
 // serve static content for views
 app.use(express.static(__dirname + '/public'));
@@ -43,7 +34,9 @@ app.use('/api/bans', bans);
 
 // render the loading view
 app.get('/loading', function(req, res, next) {
-     res.render('loading', {});
+  res.render('loading', {
+    serverid: (req.query && req.query.id) ? parseInt(req.query.id) : 0
+  });
 });
 
 // catch 404 and forward to error handler
@@ -64,12 +57,6 @@ app.set('port', port);
 // setup http server
 var server = require('http').createServer(app);
 server.listen(port);
-
-// setup socket.io
-var io = require('socket.io').listen(server, {
-  log: false,
-  origins: '*:*'
-});
 
 // hooking
 server.on('error', onError);
