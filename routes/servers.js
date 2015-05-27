@@ -44,6 +44,31 @@ router.get('/all', function(req, res, next) {
   res.json(cache.results);
 });
 
+/* GET get server status  ----TODO IMPLEMENT PROMISES HERE
+router.get('/status/all', function(req, res, next) {
+  pullServers();
+  
+  var servers = [];
+  
+  for(var i = 0; i < cache.results.length; i++) {
+    if(!cache.results[i].ip && !cache.results[i].port)
+      continue;
+      
+      query({
+        type: 'garrysmod',
+        host: cache.results[i].ip,
+        port: cache.results[i].port
+      },
+      function(state) {
+        if(!state.error)
+          servers.push({ip: cache.results[i].ip, dns: cache.results[i].dns, port: cache.results[i].port, name: cache.results[i].name, map: state.map, password: state.password, maxplayers: state.maxplayers, players: state.players});
+      });  
+  }
+  
+  res.json(servers);
+});
+*/
+
 /* GET get server status */
 router.get('/status/:id', function(req, res, next) {
   var serverData = getHostforId(parseInt(req.params.id) || 0);
@@ -67,7 +92,7 @@ router.get('/status/:id', function(req, res, next) {
       }).status(500);
       return;
     } else {
-      res.json({ip: serverData.ip, host: serverData.dns, port: serverData.port, name: serverData.name, map: state.map, password: state.password, maxplayers: state.maxplayers, players: state.players});
+      res.json({ip: serverData.ip, dns: serverData.dns, port: serverData.port, name: serverData.name, map: state.map, password: state.password, maxplayers: state.maxplayers, players: state.players});
     }   
   });
 });
