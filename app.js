@@ -2,15 +2,12 @@
 'use strict';
 
 var express = require('express'),
-  bodyParser = require('body-parser'),
-  mustacheExpress = require('mustache-express');
+  bodyParser = require('body-parser');
 
 var app = express();
 
 // setup view templating
-app.engine('mustache', mustacheExpress());
-
-app.set('view engine', 'mustache');
+app.set('view engine', 'hjs');
 app.set('views', __dirname + '/views');
 app.set('x-powered-by', false);
 
