@@ -9,7 +9,7 @@ var router = express.Router();
 router.get('/:serverid/chat', function(req, res, next) {
   var query = {
     sql: 'SELECT DISTINCT `text` FROM `es_logs` WHERE `type` = 4 AND `serverid` = ? ORDER BY `id` ASC LIMIT ?;',
-    values: [req.params.serverid, req.query.limit ? parseInt(req.query.limit) : 10]
+    values: [req.params.serverid, (req.query && req.query.limit) ? parseInt(req.query.limit) : 10]
   };
 
   db.query(query,
