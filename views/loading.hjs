@@ -29,8 +29,8 @@
           </div>
           <div class="panel-body">
             <p style="line-height:38px;">
-              <img class="icon" src="img/icon_players.png">0/
-              <span id="maxplayers">0</span> players
+              <img class="icon" src="img/icon_players.png">
+              <span id="players">0</span> players
               <br />
               <img class="icon" src="img/icon_map.png">
               <span id="map">undefined</span>
