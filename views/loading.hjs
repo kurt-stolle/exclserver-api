@@ -13,7 +13,6 @@
 </head>
 
 <body data-server-id="{{serverid}}">
-  <div id="background">&nbsp;</div>
   <div class="container center">
     <div class="row">
       <div class="col-sm-12">

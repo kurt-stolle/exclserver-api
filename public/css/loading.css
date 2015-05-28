@@ -8,12 +8,14 @@ body {
 	position:relative;
 }
 
-body::before {
+.background {
 	content:'';
-	top:0px;
-	left:0px;
-	right:0px;
-	bottom:0px;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+  height: 100%;
+  width: 100%;
 	position:absolute;
 	background-image: url(../img/background1.jpeg);
   background-size: cover;
@@ -38,7 +40,7 @@ h1.title {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%); /* Yep! */
+  transform: translate(-50%, -50%);
   width: 48%;
   height: 59%;
 }
