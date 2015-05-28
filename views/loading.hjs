@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head lang="en-US" data-serverid="{{serverid}}">
+<head lang="en-US">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body>
+<body data-server-id="{{serverid}}">
   <div id="background">&nbsp;</div>
   <div class="container center">
     <div class="row">
