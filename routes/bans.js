@@ -40,6 +40,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* POST add a ban */
+/*
 router.post('/add', authenticate, function(req, res, next) {
   if (!req.body.steamid) {
     res.json({
@@ -113,5 +114,5 @@ router.post('/add', authenticate, function(req, res, next) {
       }
     });
 });
-
+*/
 module.exports = router;

@@ -24,6 +24,7 @@ router.get('/:steamid/rank', function(req, res, next) {
 });
 
 /* POST set rank for player provided with Steam and Server ID */
+/*
 router.post('/:steamid/rank', authenticate, function(req, res, next) {
   if (!req.body.rank) {
     res.json({
@@ -75,7 +76,7 @@ router.post('/:steamid/rank', authenticate, function(req, res, next) {
       }
     });
 });
-
+*/
 /* GET get all fields for a player provided with SteamID */
 router.get('/:steamid/fields', function(req, res, next) {
   db.query({
@@ -112,6 +113,7 @@ router.get('/:steamid/fields/:field', function(req, res, next) {
 });
 
 /* POST set specific field for player provided with SteamID */
+/*
 router.post('/:steamid/fields/set', authenticate, function(req, res, next) {
   //cannot overwrite this stuff in the DB by chance
   if (req.body.steamid)
@@ -195,7 +197,7 @@ router.post('/:steamid/fields/set', authenticate, function(req, res, next) {
       }
     });
 });
-
+*/
 /* GET get player inventory and filter by itemtype */
 router.get('/:steamid/inventory', function(req, res, next) {
   var query = {
@@ -221,7 +223,7 @@ router.get('/:steamid/inventory', function(req, res, next) {
 });
 
 /* POST add item to player's inventory */
-router.post('/:steamid/inventory/add', authenticate, function(req, res, next) {
+/*router.post('/:steamid/inventory/add', authenticate, function(req, res, next) {
   if (!req.body.itemtype) res.json({
     err: 'itemtype required'
   });
@@ -247,5 +249,5 @@ router.post('/:steamid/inventory/add', authenticate, function(req, res, next) {
       res.json(results);
     });
 });
-
+*/
 module.exports = router;
