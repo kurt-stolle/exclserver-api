@@ -1,7 +1,8 @@
 'use strict';
 
 var express = require('express'),
-  db = require('../lib/db.js');
+  db = require('../lib/db.js'),
+  authenticate = require('../lib/authenticate.js');
 
 var router = express.Router();
 
@@ -39,7 +40,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* POST add a ban */
-router.post('/add', function(req, res, next) {
+router.post('/add', authenticate, function(req, res, next) {
   if (!req.body.steamid) {
     res.json({
       err: 'steamid required'

@@ -1,7 +1,8 @@
 'use strict';
 
 var express = require('express'),
-  db = require('../lib/db.js');
+  db = require('../lib/db.js'),
+  authenticate = require('../lib/authenticate.js');
 
 var router = express.Router();
 
@@ -23,7 +24,7 @@ router.get('/:steamid/rank', function(req, res, next) {
 });
 
 /* POST set rank for player provided with Steam and Server ID */
-router.post('/:steamid/rank', function(req, res, next) {
+router.post('/:steamid/rank', authenticate, function(req, res, next) {
   if (!req.body.rank) {
     res.json({
       err: 'rank required'
@@ -88,7 +89,7 @@ router.get('/:steamid/fields', function(req, res, next) {
         }).status(500);
         return;
       }
-      
+
       res.json(results[0]);
     });
 });
@@ -111,7 +112,7 @@ router.get('/:steamid/fields/:field', function(req, res, next) {
 });
 
 /* POST set specific field for player provided with SteamID */
-router.post('/:steamid/fields/set', function(req, res, next) {
+router.post('/:steamid/fields/set', authenticate, function(req, res, next) {
   //cannot overwrite this stuff in the DB by chance
   if (req.body.steamid)
     delete req.body.steamid;
@@ -220,7 +221,7 @@ router.get('/:steamid/inventory', function(req, res, next) {
 });
 
 /* POST add item to player's inventory */
-router.post('/:steamid/inventory/add', function(req, res, next) {
+router.post('/:steamid/inventory/add', authenticate, function(req, res, next) {
   if (!req.body.itemtype) res.json({
     err: 'itemtype required'
   });

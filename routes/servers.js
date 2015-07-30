@@ -21,7 +21,7 @@ function pullServers() {
       function(error, results, fields) {
         // how to handle this?
         // if(error) {}
-        
+
         cache.time = time;
         cache.results = results;
       });
@@ -30,12 +30,12 @@ function pullServers() {
 
 function getHostforId(id) {
   pullServers();
- 
-  for(var i = 0; i < cache.results.length; i++) {    
+
+  for(var i = 0; i < cache.results.length; i++) {
     if(cache.results[i].id == id)
       return cache.results[i];
   }
-  
+
   return null;
 }
 
@@ -44,42 +44,17 @@ router.get('/all', function(req, res, next) {
   res.json(cache.results);
 });
 
-/* GET get server status  ----TODO IMPLEMENT PROMISES HERE
-router.get('/status/all', function(req, res, next) {
-  pullServers();
-  
-  var servers = [];
-  
-  for(var i = 0; i < cache.results.length; i++) {
-    if(!cache.results[i].ip && !cache.results[i].port)
-      continue;
-      
-      query({
-        type: 'garrysmod',
-        host: cache.results[i].ip,
-        port: cache.results[i].port
-      },
-      function(state) {
-        if(!state.error)
-          servers.push({ip: cache.results[i].ip, dns: cache.results[i].dns, port: cache.results[i].port, name: cache.results[i].name, map: state.map, password: state.password, maxplayers: state.maxplayers, players: state.players});
-      });  
-  }
-  
-  res.json(servers);
-});
-*/
-
 /* GET get server status */
 router.get('/status/:id', function(req, res, next) {
   var serverData = getHostforId(parseInt(req.params.id) || 0);
-   
+
   if(!serverData) {
       res.json({
         error: 'Status for requested id unavailable (no connnection info for server id)'
       }).status(500);
       return;
   }
-  
+
   query({
     type: 'garrysmod',
     host: serverData.ip,
@@ -93,7 +68,7 @@ router.get('/status/:id', function(req, res, next) {
       return;
     } else {
       res.json({ip: serverData.ip, dns: serverData.dns, port: serverData.port, name: serverData.name, map: state.map, password: state.password, maxplayers: state.maxplayers, players: state.players});
-    }   
+    }
   });
 });
 

@@ -39,17 +39,17 @@ function GameDetails(servername, serverurl, mapname, maxplayers, steamid, gamemo
 
   steamid = SteamIDConvert(steamid)
 
-  $.getJSON('http://localhost:3000/api/servers/status/' + GetServerID(), function(data) {
+  $.getJSON('/api/servers/status/' + GetServerID(), function(data) {
     console.log(data);
     $('#players').text(data.players.length + '/' + data.maxplayers);
     $('#ip').text(data.dns);
   });
 
-  $.getJSON('http://localhost:3000/api/player/'+steamid+'/fields/bananas', function(data) {
+  $.getJSON('/api/player/'+steamid+'/fields/bananas', function(data) {
     $('#bananas').text(data.value);
   });
 
-  $.getJSON('http://localhost:3000/api/player/'+steamid+'/fields/playtime', function(data) {
+  $.getJSON('/api/player/'+steamid+'/fields/playtime', function(data) {
     $('#time').text(data.value);
   });
 }
