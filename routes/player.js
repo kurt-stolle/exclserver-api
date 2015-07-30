@@ -102,7 +102,7 @@ router.get('/:steamid/fields/:field', function(req, res, next) {
       values: [req.params.field, req.params.steamid]
     },
     function(error, results, fields) {
-      if (error || !results[0][req.params.field]) {
+      if (error || !results[0] || !results[0][req.params.field]) {
         res.json({
           error: 'Internal server error'
         }).status(500);
