@@ -23,7 +23,16 @@ function pullServers() {
         // if(error) {}
 
         cache.time = time;
-        cache.results = results;
+        cache.results = [];
+        for(var i = 0; i < results.length; i++) {
+          if(!results[i].name || results[i].name == '')
+            continue;
+
+          if(!results[i].dns || results[i].dns == '')
+            results[i].dns = String(results[i].ip) + String(results[i].port);
+
+          cache.results[i] = results[i];
+        }
       });
   }
 }
