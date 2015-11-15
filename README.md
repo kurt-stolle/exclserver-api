@@ -1,6 +1,13 @@
 # ExclServer API
 The Node.JS app for ExclServer.
 
+Installation
+-----
+First install Node.JS from https://nodejs.org/en/download/
+Then run the ExclServer API using `npm start` from the base directory.
+
+ExclServer-API is also available using `npm install exclserver-api`: https://www.npmjs.com/package/exclserver-api
+
 Configuration
 -----
 
